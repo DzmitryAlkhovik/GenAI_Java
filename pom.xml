@@ -15,7 +15,10 @@
     <description>gen_ai_training</description>
     <properties>
         <java.version>17</java.version>
+        <azure.ai.openai>1.0.0-beta.14</azure.ai.openai>
+        <semantic.kernel.version>1.4.3</semantic.kernel.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,22 +44,22 @@
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
             <artifactId>semantickernel-aiservices-openai</artifactId>
-            <version>1.4.2</version>
+            <version>${semantic.kernel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
             <artifactId>semantickernel-api</artifactId>
-            <version>1.4.2</version>
+            <version>${semantic.kernel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
             <artifactId>semantickernel-experimental</artifactId>
-            <version>1.4.2</version>
+            <version>${semantic.kernel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
             <artifactId>semantickernel-bom</artifactId>
-            <version>1.4.2</version>
+            <version>${semantic.kernel.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -92,8 +95,14 @@
         <dependency>
             <groupId>com.azure</groupId>
             <artifactId>azure-ai-openai</artifactId>
-            <version>1.0.0-beta.11</version>
+            <version>${azure.ai.openai}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-text</artifactId>-->
+<!--            <version>1.13.0</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>
