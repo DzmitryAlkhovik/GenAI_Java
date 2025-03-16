@@ -1,18 +1,14 @@
 package com.epam.training.gen.ai.service;
 
-import com.epam.training.gen.ai.exception.NoContentException;
 import com.epam.training.gen.ai.exception.ServiceWorkException;
+import com.epam.training.gen.ai.service.util.SKUtils;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.orchestration.InvocationContext;
-import com.microsoft.semantickernel.services.chatcompletion.AuthorRole;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
 import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
-import com.microsoft.semantickernel.services.chatcompletion.ChatMessageContent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -27,7 +23,7 @@ public class ChatService {
     public String processInput(String input) {
         var contextsList = chatCompletionService.getChatMessageContentsAsync(input, kernel, invocationContext).block();
 
-        return extractAssistantResponse(contextsList);
+        return SKUtils.extractAssistantResponse(contextsList);
     }
 
     public String processInputV2(String input) {
@@ -48,19 +44,8 @@ public class ChatService {
         chatHistory.addUserMessage(input);
         var contextsList = chatCompletionService.getChatMessageContentsAsync(chatHistory, kernel, invocationContext).block();
 
-        return extractAssistantResponse(contextsList);
+        return SKUtils.extractAssistantResponse(contextsList);
     }
 
-    private String extractAssistantResponse(List<ChatMessageContent<?>> contextsList) {
-        String result;
-        if (contextsList != null) {
-            result = contextsList.stream()
-                    .filter(contentBlock -> contentBlock.getAuthorRole().equals(AuthorRole.ASSISTANT))
-                    .findFirst().orElseThrow(NoContentException::new)
-                    .getContent();
-        } else {
-            throw new ServiceWorkException("Context list for the ChatCompletionService is null");
-        }
-        return result;
-    }
+
 }

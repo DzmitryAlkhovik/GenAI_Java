@@ -9,11 +9,13 @@ import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class KernelSemanticConfiguration {
 
     @Bean
+    @Primary
     public ChatCompletionService chatCompletionService(@Value("${client-azureopenai-deployment-name}") String modelId, OpenAIAsyncClient client) {
         return OpenAIChatCompletion.builder()
                 .withModelId(modelId)
@@ -22,6 +24,7 @@ public class KernelSemanticConfiguration {
     }
 
     @Bean
+    @Primary
     public Kernel kernel(ChatCompletionService chatCompletionService) {
         return Kernel.builder()
                 .withAIService(ChatCompletionService.class, chatCompletionService)
@@ -29,6 +32,7 @@ public class KernelSemanticConfiguration {
     }
 
     @Bean
+    @Primary
     public InvocationContext invocationContext() {
         return InvocationContext.builder()
 //                .withReturnMode(InvocationReturnMode.FULL_HISTORY)
@@ -36,6 +40,7 @@ public class KernelSemanticConfiguration {
     }
 
     @Bean
+    @Primary
     public ChatHistory chatHistory() {
         return new ChatHistory();
     }

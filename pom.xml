@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.8</version>
+        <version>3.4.0</version>
         <relativePath/>
     </parent>
     <groupId>com.epam.training.gen.ai</groupId>
@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <azure.ai.openai>1.0.0-beta.14</azure.ai.openai>
         <semantic.kernel.version>1.4.3</semantic.kernel.version>
+        <victools.jsonschema>4.36.0</victools.jsonschema>
     </properties>
 
     <dependencies>
@@ -97,11 +98,17 @@
             <artifactId>azure-ai-openai</artifactId>
             <version>${azure.ai.openai}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.commons</groupId>-->
-<!--            <artifactId>commons-text</artifactId>-->
-<!--            <version>1.13.0</version>-->
-<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jackson</artifactId>
+            <version>${victools.jsonschema}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-generator</artifactId>
+            <version>${victools.jsonschema}</version>
+        </dependency>
 
     </dependencies>
 
