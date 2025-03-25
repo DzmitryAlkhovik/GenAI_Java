@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAIConfiguration {
 
     @Bean
-    public OpenAIAsyncClient openAIAsyncClient(@Value("${client-azureopenai-key}") String key, @Value("${client-azureopenai-endpoint}") String endpoint) {
+    public OpenAIAsyncClient openAIAsyncClient(@Value("${client.key}") String key, @Value("${client.endpoint}") String endpoint) {
         return new OpenAIClientBuilder()
                 .credential(new AzureKeyCredential(key))
                 .endpoint(endpoint)
