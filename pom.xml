@@ -62,7 +62,7 @@
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
             <artifactId>semantickernel-aiservices-google</artifactId>
-            <version>1.4.3</version>
+            <version>${semantic.kernel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
