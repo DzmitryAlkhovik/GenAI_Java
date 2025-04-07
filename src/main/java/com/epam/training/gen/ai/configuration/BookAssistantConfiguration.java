@@ -4,6 +4,7 @@ import com.epam.training.gen.ai.dto.BookInfo;
 import com.epam.training.gen.ai.exception.ServiceWorkException;
 import com.microsoft.semantickernel.orchestration.InvocationContext;
 import com.microsoft.semantickernel.orchestration.PromptExecutionSettings;
+import com.microsoft.semantickernel.orchestration.ToolCallBehavior;
 import com.microsoft.semantickernel.orchestration.responseformat.ResponseFormat;
 import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,7 @@ public class BookAssistantConfiguration {
     public InvocationContext bookAssistantInvocationContext() {
         return InvocationContext.builder()
                 .withPromptExecutionSettings(bookAssistantPromptExecutionSettings())
+                .withToolCallBehavior(ToolCallBehavior.allowAllKernelFunctions(true))
                 .build();
     }
 
@@ -47,6 +49,7 @@ public class BookAssistantConfiguration {
     public InvocationContext bookAssistantInvocationContextForBookInfo() {
         return InvocationContext.builder()
                 .withPromptExecutionSettings(bookAssistantPromptExecutionSettingsForBookInfo())
+                .withToolCallBehavior(ToolCallBehavior.allowAllKernelFunctions(true))
                 .build();
     }
 
@@ -59,7 +62,7 @@ public class BookAssistantConfiguration {
                 .withTopP(0.8) //"Considers the top tokens accounting for 80% of the probability distribution, narrowing randomness (MIN: CONSIDERS ONLY THE SINGLE MOST PROBABLE TOKEN)" Set the topP setting for prompt execution. The value is clamped to the range [0.0, 1.0], and the default is 1.0.
                 .withTemperature(1.2) //"Adds creativity and randomness to the output (MAX: ADDS HIGH RANDOMNESS)" Set the temperature setting for prompt execution. The value is clamped to the range [0.0, 2.0], and the default is 1.0.
                 //.withJsonSchemaResponseFormat() //Set the response format to use a json schema generated for the given class. The name of the response format will be the name of the class.
-                .withResponseFormat(ResponseFormat.Type.TEXT) //Set the response format to use for prompt execution.
+//                .withResponseFormat(ResponseFormat.Type.TEXT) //Set the response format to use for prompt execution.
                 .withResultsPerPrompt(1) //Set the number of results to generate for each prompt. The value is clamped to the range [1, Integer.MAX_VALUE], and the default is 1.
                 //.withMaxTokens() //Set the maximum number of tokens to generate in the output. The value is clamped to the range [1, Integer.MAX_VALUE], and the default is 256.
                 //.withModelId() //Set the id of the model to use for prompt execution.
