@@ -43,6 +43,7 @@ public class BookAssistantService {
         chatHistory.addUserMessage(input);
         var contextsList = chatCompletionService.getChatMessageContentsAsync(chatHistory, kernel, invocationContext).block();
 
+        SKUtils.logToolsActions(contextsList);
         var assistantResponse = SKUtils.extractAssistantResponse(contextsList);
         log.info(assistantResponse);
         chatHistory.addAssistantMessage(assistantResponse);
