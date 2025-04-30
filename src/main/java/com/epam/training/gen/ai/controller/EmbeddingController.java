@@ -2,8 +2,8 @@ package com.epam.training.gen.ai.controller;
 
 import com.azure.ai.openai.models.EmbeddingItem;
 import com.epam.training.gen.ai.dto.BookInfo;
-import com.epam.training.gen.ai.dto.SearchBookInfoDTO;
-import com.epam.training.gen.ai.service.EmbeddingService;
+import com.epam.training.gen.ai.dto.SearchInfoDTO;
+import com.epam.training.gen.ai.embedding.EmbeddingService;
 import io.qdrant.client.grpc.Points;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +24,11 @@ public class EmbeddingController {
     @PostMapping("book")
     public Points.UpdateStatus saveBook(@RequestParam(name = "input") String userInput,
                                         @RequestBody BookInfo bookInfo) {
-        return embeddingService.save(userInput, bookInfo);
+        return embeddingService.save(userInput, bookInfo, BookInfo.class);
     }
 
     @GetMapping("book")
-    public List<SearchBookInfoDTO> retrieveBook(@RequestParam(name = "input") String userInput) {
-        return embeddingService.search(userInput);
+    public List<SearchInfoDTO<BookInfo>> retrieveBook(@RequestParam(name = "input") String userInput) {
+        return embeddingService.search(userInput, BookInfo.class);
     }
 }
