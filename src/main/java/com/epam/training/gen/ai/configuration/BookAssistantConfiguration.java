@@ -49,7 +49,7 @@ public class BookAssistantConfiguration {
     public InvocationContext bookAssistantInvocationContextForBookInfo() {
         return InvocationContext.builder()
                 .withPromptExecutionSettings(bookAssistantPromptExecutionSettingsForBookInfo())
-                .withToolCallBehavior(ToolCallBehavior.allowAllKernelFunctions(true))
+//                .withToolCallBehavior(ToolCallBehavior.allowAllKernelFunctions(true))
                 .build();
     }
 
