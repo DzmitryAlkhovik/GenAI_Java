@@ -37,6 +37,18 @@ public class BookAssistantConfiguration {
         return chatHistory;
     }
 
+    @Bean("bookAssistantMemoryPrompt")
+    public String buildMemoryPrompt(@Value("classpath:/config/book_assistant_memory_prompt_template.txt") Resource resource) {
+        String template;
+        try {
+            template = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+            log.info(template);
+        } catch (IOException e) {
+            throw new ServiceWorkException("Error during the loading of the memory prompt for the book assistant", e);
+        }
+        return template;
+    }
+
     @Bean("bookAssistantInvocationContext")
     public InvocationContext bookAssistantInvocationContext() {
         return InvocationContext.builder()

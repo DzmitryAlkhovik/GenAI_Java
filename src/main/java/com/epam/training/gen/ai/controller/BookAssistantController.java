@@ -5,11 +5,10 @@ import com.epam.training.gen.ai.dto.ChatResponse;
 import com.epam.training.gen.ai.service.BookAssistantService;
 import com.epam.training.gen.ai.service.BookCartService;
 import com.epam.training.gen.ai.service.BorrowedBookService;
+import com.epam.training.gen.ai.service.MemoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class BookAssistantController {
     private final BookAssistantService bookAssistantService;
     private final BookCartService bookCartService;
     private final BorrowedBookService borrowedBookService;
+    private final MemoryService memoryService;
 
     /**
      * Pure output with no {@link ChatResponse} wrapper for the better view
@@ -43,5 +43,16 @@ public class BookAssistantController {
     @GetMapping("check/borrowed")
     public List<BookInfo> checkBorrowedBooks() {
         return borrowedBookService.getBorrowedBooksDB();
+    }
+
+    @GetMapping("memory")
+    public String recallFromReadBooks(@RequestParam(name = "input") String userInput) {
+        return memoryService.answer(userInput);
+    }
+
+    @PostMapping("memory")
+    public ResponseEntity<?> readBook(@RequestParam(name = "bookPath") String bookPath) {
+        memoryService.readBook(bookPath);
+        return ResponseEntity.ok().build();
     }
 }
